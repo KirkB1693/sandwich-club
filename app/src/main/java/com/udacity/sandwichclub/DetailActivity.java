@@ -14,7 +14,6 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 import org.json.JSONException;
 
 import java.util.List;
-import java.util.ListIterator;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -79,9 +78,13 @@ public class DetailActivity extends AppCompatActivity {
     private void populateUI(Sandwich sandwich) {
         mAlsoKnownTv.setText("");
         List<String> akaList = sandwich.getAlsoKnownAs();
-        ListIterator<String> stringListIterator = akaList.listIterator();
-        while (stringListIterator.hasNext()){
-            mAlsoKnownTv.append(stringListIterator.next() + "\n");
+        for (String aka : akaList){
+            if (aka.equals(akaList.get(0))) {
+                mAlsoKnownTv.append(aka);
+            } else {
+                mAlsoKnownTv.append( ", " + aka);
+            }
+
         }
 
         mDescriptionTv.setText(sandwich.getDescription());
@@ -90,9 +93,12 @@ public class DetailActivity extends AppCompatActivity {
 
         mIngredientsTv.setText("");
         List<String> ingredientsList = sandwich.getIngredients();
-        ListIterator<String> stringListIterator2 = ingredientsList.listIterator();
-        while (stringListIterator2.hasNext()){
-            mIngredientsTv.append(stringListIterator2.next() + "\n");
+        for (String ingredient : ingredientsList){
+            if (ingredient.equals(ingredientsList.get(0))) {
+                mIngredientsTv.append(ingredient);
+            } else {
+                mIngredientsTv.append( "\n" + ingredient);
+            }
         }
     }
 }
